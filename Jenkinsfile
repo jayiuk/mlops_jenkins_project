@@ -17,7 +17,7 @@ pipeline {
                 checkout sum
             }
         }
-		stage("build") {
+		stage("Build") {
 			steps {
 				sh 'docker compose build web'
 			}
