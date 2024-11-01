@@ -17,26 +17,26 @@ pipeline {
                 checkout sum
             }
         }
-		stage("Build") {
-			steps {
-				sh 'docker compose build web'
+	stage("Build") {
+		steps {
+			sh 'docker compose build web'
+		}
+	}
+	stage("test") {
+		when {
+			expression {
+				params.executeTests
 			}
 		}
-		stage("test") {
-			when {
-				expression {
-					params.executeTests
-				}
-			}
-			steps {
-				script {
-					gv.testApp()
-				}
+		steps {
+			script {
+				gv.testApp()
 			}
 		}
-		stage("deploy") {
-			steps {
-                sh "docker compose up -d"
+	}
+	stage("deploy") {
+		steps {
+                	sh "docker compose up -d"
 			}
 		}
 	}
